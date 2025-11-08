@@ -1,0 +1,182 @@
+# queries.yml для Database Exporter (Dashboard 1)
+pg_database_size_bytes:
+  query: "SELECT pg_database.datname AS datname, pg_database_size(pg_database.datname) AS size_bytes FROM pg_database;"
+  metrics:
+    - datname:
+        usage: "LABEL"
+
+pg_active_connections:
+  query: "SELECT state, count(*) AS value FROM pg_stat_activity GROUP BY state;"
+  metrics:
+    - state:
+        usage: "LABEL"
+
+pg_uptime_seconds:
+  query: "SELECT extract(epoch from (now() - pg_postmaster_start_time())) AS uptime;"
+  metrics:
+    - uptime:
+        usage: "GAUGE"
+
+pg_transactions_per_second:
+  query: "SELECT sum(xact_commit + xact_rollback) AS tps FROM pg_stat_database;"
+  metrics:
+    - tps:
+        usage: "GAUGE"
+
+pg_slow_queries:
+  query: "SELECT count(*) AS slow_queries FROM pg_stat_statements WHERE total_time > 1000;"
+  metrics:
+    - slow_queries:
+        usage: "GAUGE"
+
+pg_users_count:
+  query: "SELECT count(*) AS value FROM pg_roles;"
+  metrics:
+    - value:
+        usage: "GAUGE"
+
+pg_tables_count:
+  query: "SELECT count(*) AS value FROM pg_tables WHERE schemaname='public';"
+  metrics:
+    - value:
+        usage: "GAUGE"
+
+pg_total_rows:
+  query: "SELECT sum(reltuples::bigint) AS value FROM pg_class WHERE relkind='r';"
+  metrics:
+    - value:
+        usage: "GAUGE"
+
+pg_read_write_ops:
+  query: "SELECT sum(seq_scan + idx_scan) AS value FROM pg_stat_user_tables;"
+  metrics:
+    - value:
+        usage: "GAUGE"
+
+pg_query_speed_qps:
+  query: "SELECT sum(calls) AS qps FROM pg_stat_statements;"
+  metrics:
+    - qps:
+        usage: "GAUGE"
+
+# queries.yml для Node Exporter (Dashboard 2)
+node_cpu_usage_percent:
+  query: "100 - (avg by(cpu) (irate(node_cpu_seconds_total{mode='idle'}[5m])) * 100)"
+  metrics:
+    - cpu:
+        usage: "GAUGE"
+
+node_load1:
+  query: "node_load1"
+  metrics:
+    - cpu_load:
+        usage: "GAUGE"
+
+node_load5:
+  query: "node_load5"
+  metrics:
+    - cpu_load:
+        usage: "GAUGE"
+
+node_load15:
+  query: "node_load15"
+  metrics:
+    - cpu_load:
+        usage: "GAUGE"
+
+node_memory_usage_percent:
+  query: "(node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / node_memory_MemTotal_bytes * 100"
+  metrics:
+    - usage:
+        usage: "GAUGE"
+
+node_disk_usage_gb:
+  query: "(node_filesystem_size_bytes - node_filesystem_free_bytes) / 1024 / 1024 / 1024"
+  metrics:
+    - usage_gb:
+        usage: "GAUGE"
+
+node_disk_io_read_bytes_per_sec:
+  query: "rate(node_disk_read_bytes_total[1m])"
+  metrics:
+    - read_bytes_per_sec:
+        usage: "GAUGE"
+
+node_disk_io_write_bytes_per_sec:
+  query: "rate(node_disk_written_bytes_total[1m])"
+  metrics:
+    - write_bytes_per_sec:
+        usage: "GAUGE"
+
+node_network_in_mbps:
+  query: "rate(node_network_receive_bytes_total[1m]) * 8 / 1024 / 1024"
+  metrics:
+    - in_mbps:
+        usage: "GAUGE"
+
+node_network_out_mbps:
+  query: "rate(node_network_transmit_bytes_total[1m]) * 8 / 1024 / 1024"
+  metrics:
+    - out_mbps:
+        usage: "GAUGE"
+
+# queries.yml для Custom Exporter (Dashboard 3)
+custom_temperature_celsius:
+  query: "temperature_celsius"
+  metrics:
+    - value:
+        usage: "GAUGE"
+
+custom_air_quality_index:
+  query: "air_quality_index"
+  metrics:
+    - value:
+        usage: "GAUGE"
+
+custom_currency_usd:
+  query: "usd_exchange_rate"
+  metrics:
+    - value:
+        usage: "GAUGE"
+
+custom_currency_eur:
+  query: "eur_exchange_rate"
+  metrics:
+    - value:
+        usage: "GAUGE"
+
+custom_github_commits:
+  query: "github_commits_total"
+  metrics:
+    - value:
+        usage: "GAUGE"
+
+custom_active_users:
+  query: "active_users"
+  metrics:
+    - value:
+        usage: "GAUGE"
+
+custom_pollution_level:
+  query: "pollution_level"
+  metrics:
+    - value:
+        usage: "GAUGE"
+
+custom_weather_temp:
+  query: "weather_temperature"
+  metrics:
+    - value:
+        usage: "GAUGE"
+
+custom_weather_humidity:
+  query: "weather_humidity"
+  metrics:
+    - value:
+        usage: "GAUGE"
+
+custom_api_requests_total:
+  query: "api_requests_total"
+  metrics:
+    - value:
+        usage: "GAUGE"
