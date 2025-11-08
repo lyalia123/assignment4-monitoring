@@ -1,5 +1,6 @@
-###Monitoring Stack (Prometheus + Grafana + Custom Exporter)
-##Project Description
+### Monitoring Stack (Prometheus + Grafana + Custom Exporter)
+
+## Project Description
 
 This project is designed for collecting and visualizing metrics using Prometheus and Grafana.
 The system includes three data sources:
@@ -12,7 +13,7 @@ Node Exporter — system metrics (CPU, RAM, disk, network).
 
 All services are launched using Docker Compose and connected in a single monitoring network.
 
-##Project Setup
+## Project Setup
 
 Install Docker and Docker Compose.
 
@@ -31,7 +32,7 @@ Grafana: http://localhost:3000
 
 Custom Exporter: http://localhost:8000/metrics
 
-##Dashboard 1 — Custom Exporter (Weather API)
+## Dashboard 1 — Custom Exporter (Weather API)
 
 Displays real-time weather data obtained from the Open-Meteo API.
 Metrics include temperature, humidity, pressure, cloud cover, wind speed, and direction.
@@ -60,7 +61,7 @@ Maximum wind speed in the past 15 minutes
 
 Temperature readings in Celsius
 
-##Dashboard 2 — Database Exporter (PostgreSQL)
+## Dashboard 2 — Database Exporter (PostgreSQL)
 
 Displays the database status and activity.
 
@@ -86,7 +87,7 @@ Active connections
 
 Database Size (Bytes)
 
-##Dashboard 3 — Node Exporter (System Metrics)
+## Dashboard 3 — Node Exporter (System Metrics)
 
 Monitors server performance and system health.
 
@@ -112,7 +113,7 @@ CPU Usage (%)
 
 Disk I/O (Read/Write)
 
-##Verification
+## Verification
 
 Open http://localhost:9090/targets
 
@@ -124,7 +125,7 @@ Ensure metrics are updating.
 
 Open Grafana and confirm that the dashboards display data correctly.
 
-##Technologies Used
+## Technologies Used
 
 Python — implementation of the Custom Exporter
 
@@ -136,7 +137,7 @@ Docker Compose — container orchestration
 
 Open-Meteo API — external weather data source
 
-##Results
+## Results
 
 After starting the project, Grafana displays three dashboards:
 
