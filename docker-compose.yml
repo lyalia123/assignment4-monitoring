@@ -8,10 +8,6 @@ services:
       - "9090:9090"
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
-    depends_on:
-      - node_exporter
-      - postgres_exporter
-      - custom_exporter
     networks:
       - monitoring
 
@@ -62,9 +58,7 @@ services:
       - monitoring
 
   custom_exporter:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    build: .
     container_name: custom_exporter
     command: ["python3", "custom_exporter.py"]
     ports:
